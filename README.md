@@ -16,8 +16,7 @@ Filenames for training and test data should be named prefixed with:
 
 This is required for training and model evaluation purposes. 
 
-No training data is included in this repository. However, the publicly available dataset I used can be found here: https://data.mendeley.com/datasets/4drtyfjtfy/
-1
+No training data is included in this repository. However, the publicly available dataset I used can be found here: https://data.mendeley.com/datasets/4drtyfjtfy/1
 
 (Citation: Ajayi, Gbeminiyi (2018), “Multi-class Weather Dataset for Image Classification”, Mendeley Data, V1, doi: 10.17632/4drtyfjtfy.1)
 
