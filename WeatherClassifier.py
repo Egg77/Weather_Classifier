@@ -17,6 +17,8 @@ import ProcessImages as pr, ExtractRandomTest as ex, Training as tr
 
 if __name__ == "__main__":
 
+    print("\nWeather Classification Image Recognition using Google Tensorflow\nFor ENEL 525 - Introduction to Machine Learning at the Schulich School of Engineering\nCreated by: Patrick Robert Willmann\n\nImages will be classified as follows: Cloudy, Rainy, Sunshine, and Sunrise.\n\nNote: Filenames for training and test data should be named prefixed with:\n'cl' for cloudy, 'ra' for rainy, 'sh' for sunshine, and 'su' for sunrise.")
+
     # Initialize Default Values
     customTest = False
     dataPaths = []
@@ -53,18 +55,24 @@ if __name__ == "__main__":
 
     # Import & Process Images
 
+    print("\nProcessing training images...")
     trainingImages, trainingTargets = pr.Process(dataPaths[0], dim = dimensions)
 
     if customTest == True:
+        print("Processing test images...")
         testImages, testTargets = pr.Process(dataPaths[1], dim = dimensions)
     else:
         # Take a subset of images from trainingImages list to testImages list
+        print("Extracting test images from training dataset...")
         testImages, testTargets = ex.ExtractRandomTest(trainingImages, trainingTargets)
 
 
     # Train and Test the Pre-Processed Dataset
 
     testLoss, testAcc = tr.Train(trainingImages,trainingTargets, testImages, testTargets, dimensions, epochs)
+
+    print("Test Accuracy: " + str(testAcc))
+    print("Test Losses: " +str(testLoss) + "\n")
     
     testResults = tr.Test(testImages)
     testResults = testResults.astype(int)
@@ -73,4 +81,15 @@ if __name__ == "__main__":
     print("\nTarget Values: " + str(testTargets))
     print("Test Results: " + str(testResults) + "\n")
     print("Confusion Matrix:\n" + str(confusionMatrix) + "\n")
-    print("Test Accuracy: " + str(testAcc) + "\n")
+
+    # Display images and their predictions and targets if 10 or fewer test images are provided
+    if (len(testImages) <= 10):
+        fig = plt.figure(figsize = (10, 7))
+        rows = 2
+        cols = 5
+        classifications = {0: 'cl', 1: 'ra', 2: 'sh', 3: 'su'}
+        for i, img in enumerate(testImages):
+            fig.add_subplot(rows, cols, (i+1))
+            plt.imshow(testImages[i])
+            plt.title("P: " + str(classifications[testResults[i]]) + ", T: " + str(classifications[testTargets[i]]))
+        plt.show()

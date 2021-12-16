@@ -9,6 +9,7 @@ model = models.Sequential()
 
 def Train(trainingData : np.ndarray, trainingTargets : np.ndarray, testData : np.ndarray, testTargets : np.ndarray, dim : tuple, epochs : int = 10):
 
+    print("Creating model...")
     model.add(layers.Conv2D(20, (3, 3), activation = 'relu', input_shape = (dim[0], dim[1], 3)))
     model.add(layers.MaxPooling2D((2, 2)))
     model.add(layers.Conv2D(40, (3, 3), activation = 'relu'))
@@ -27,6 +28,8 @@ def Train(trainingData : np.ndarray, trainingTargets : np.ndarray, testData : np
     history = model.fit(trainingData, trainingTargets, epochs = epochs, validation_data = (testData, testTargets))
 
     # Perform Analysis
+    print("\n~~~~~~~~~Fitting Summary~~~~~~~~~~")
+    print("\nFinal Epoch: Training Loss: " + str(history.history['loss'][epochs-1]) + "; Training Accuracy: " + str(history.history['accuracy'][epochs-1]))
 
     plt.plot(history.history['accuracy'], label = 'accuracy')
     plt.plot(history.history['val_accuracy'], label = 'val_accuracy')

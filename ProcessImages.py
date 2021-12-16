@@ -24,7 +24,7 @@ def Process(path : str, resize : bool = True, dim : tuple = (50,50), greyScale :
         if filename == '.DS_Store':
             continue
 
-        print(os.path.join(path,filename))
+        # print(os.path.join(path,filename))
 
         img = cv2.imread(os.path.join(path,filename))
 
@@ -47,13 +47,12 @@ def Process(path : str, resize : bool = True, dim : tuple = (50,50), greyScale :
 
         tempList.append(img)
         targetList.append(classifications[filename[0:2]])
-        print("Image Shape: " + str(img.shape))
-        # f.write("Shape: " + str(img.shape) + "\n")
+        # print("Image Shape: " + str(img.shape))
     
     outList = np.asarray(tempList)/255.0
     outTarget = np.asarray(targetList)
 
-    print(outList.shape)
+    # print(outList.shape)
     return outList, outTarget
 
 
